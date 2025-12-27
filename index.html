@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Rii ❤️</title>
+    <style>
+        :root {
+            --pink-light: #fbcfe8;
+            --pink-dark: #f472b6;
+            --brown: #5c3d2e;
+            --purple-main: #a78bfa;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: radial-gradient(circle, #ffffff, #ffe4e9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid white;
+        }
+
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1 { color: #d63384; font-size: 1.8rem; }
+        
+        /* --- REALISTIC 3-LAYER CAKE --- */
+        .cake {
+            width: 200px;
+            margin: 60px auto 20px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .layer {
+            width: 100%;
+            height: 40px;
+            border-radius: 10px;
+            position: relative;
+            margin-top: -5px;
+            box-shadow: inset 0 -4px rgba(0,0,0,0.1);
+        }
+        .layer-top { background: var(--pink-dark); z-index: 3; width: 160px; margin-left: 20px; }
+        .layer-middle { background: var(--brown); z-index: 2; width: 180px; margin-left: 10px; }
+        .layer-bottom { background: var(--pink-dark); z-index: 1; }
+
+        .icing-drip {
+            position: absolute; top: 0; left: 0; width: 100%; height: 15px;
+            background: var(--pink-light); border-radius: 10px 10px 0 0;
+        }
+
+        /* --- SPARKLING CANDLES --- */
+        .candles {
+            position: absolute; top: -45px; width: 100%;
+            display: flex; justify-content: center; gap: 12px;
+        }
+        .candle {
+            width: 8px; height: 45px;
+            background: repeating-linear-gradient(45deg, #fff, #fff 5px, var(--purple-main) 5px, var(--purple-main) 10px);
+            border-radius: 4px; position: relative;
+        }
+        .flame {
+            width: 12px; height: 22px; background: orange;
+            border-radius: 50% 50% 20% 20%; position: absolute;
+            top: -22px; left: -2px; box-shadow: 0 0 15px orange;
+            animation: flicker 0.1s infinite alternate;
+        }
+        /* Sparkles Effect */
+        .flame::before, .flame::after {
+            content: '✨'; position: absolute; font-size: 10px;
+            animation: sparkle 1s infinite; opacity: 0;
+        }
+        .flame::after { top: -10px; left: 10px; animation-delay: 0.5s; }
+
+        @keyframes flicker { to { transform: scale(1.1); opacity: 0.8; } }
+        @keyframes sparkle { 0% { opacity: 0; transform: translateY(0); } 50% { opacity: 1; } 100% { opacity: 0; transform: translateY(-15px); } }
+        
+        .blown .flame { display: none; }
+
+        /* --- FLOWERS --- */
+        .bouquet { display: flex; justify-content: center; gap: 15px; margin: 30px 0; }
+        .flower { position: relative; width: 50px; height: 50px; }
+        .petal { position: absolute; width: 20px; height: 20px; border-radius: 50%; top: 15px; left: 15px; }
+        .p1 { transform: rotate(0deg) translate(15px); }
+        .p2 { transform: rotate(72deg) translate(15px); }
+        .p3 { transform: rotate(144deg) translate(15px); }
+        .p4 { transform: rotate(216deg) translate(15px); }
+        .p5 { transform: rotate(288deg) translate(15px); }
+        .purple .petal { background: #8b5cf6; }
+        .white .petal { background: #fff; border: 1px solid #ddd; }
+        .center { position: absolute; width: 12px; height: 12px; background: gold; border-radius: 50%; top: 19px; left: 19px; z-index: 5; }
+
+        /* --- VIDEO --- */
+        video { width: 100%; border-radius: 20px; margin: 20px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+
+        /* --- HEART ENVELOPE --- */
+        .env-wrapper {
+            position: relative; width: 260px; height: 160px;
+            margin: 60px auto 20px; cursor: pointer;
+        }
+        .env-base {
+            position: absolute; bottom: 0; width: 100%; height: 100%;
+            background: #fff; border-radius: 10px; z-index: 2;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee;
+        }
+        .env-flap {
+            position: absolute; top: 0; width: 100%; height: 100%;
+            background: #f8fafc; clip-path: polygon(0 0, 100% 0, 50% 100%);
+            z-index: 4; transform-origin: top; transition: 0.6s ease;
+            border-radius: 10px;
+        }
+        .heart-seal {
+            position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 35px; z-index: 5; transition: 0.4s;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+        .note {
+            position: absolute; top: 10%; left: 5%; width: 90%;
+            background: white; padding: 20px; border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            z-index: 1; opacity: 0; transform: scale(0.8);
+            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: left; font-size: 14px; line-height: 1.6;
+        }
+        .opened .env-flap { transform: rotateX(180deg); }
+        .opened .heart-seal { opacity: 0; }
+        .opened .note { opacity: 1; transform: scale(1.1) translateY(-150px); z-index: 10; }
+
+        button {
+            background: #ff4d6d; color: white; border: none;
+            padding: 12px 30px; border-radius: 50px; cursor: pointer;
+            font-weight: bold; margin-top: 20px; transition: 0.3s;
+        }
+        button:hover { background: #c9184a; transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="section active" id="s1">
+        <h1>Hi Rii ❤️</h1>
+        <p>Happy Birthday to someone who makes every day better.</p>
+        <button onclick="nav('s2')">Let's celebrate!</button>
+    </div>
+
+    <div class="section" id="s2">
+        <h1>Make a Wish 🎂</h1>
+        <div class="cake" id="cake" onclick="blow()">
+            <div class="candles">
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+            </div>
+            <div class="layer layer-top"><div class="icing-drip"></div></div>
+            <div class="layer layer-middle"></div>
+            <div class="layer layer-bottom"></div>
+        </div>
+        <p>Click the cake to blow the sparkling candles!</p>
+    </div>
+
+    <div class="section" id="s3">
+        <h1>For You 💐</h1>
+        <div class="bouquet">
+            <div class="flower purple"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="center"></div></div>
+            <div class="flower white"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="center"></div></div>
+            <div class="flower purple"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="center"></div></div>
+        </div>
+        <button onclick="nav('s4')">See Note</button>
+    </div>
+
+    <div class="section" id="s4">
+        <video id="vid" controls>
+            <source src="video.mp4" type="video/mp4">
+        </video>
+        <button onclick="nav('s5')">One Last Thing ❤️</button>
+    </div>
+
+    <div class="section" id="s5">
+        <h1>💌</h1>
+        <div class="env-wrapper" id="env" onclick="this.classList.toggle('opened')">
+            <div class="env-flap"></div>
+            <div class="heart-seal">❤️</div>
+            <div class="note">
+                <strong>To Rii ❤️</strong><br><br>
+                Thank you so much for coming into my life and making every moment worth living. Everyone — including me — is incredibly proud of you. 
+                <br><br>
+                I never imagined I’d meet someone so caring and multitalented. You’re the kind of person everyone wants — and lucky me, I get to proudly say you’re my girl. 
+                <br><br>
+                <strong>Happy Birthday ❤️</strong>
+            </div>
+            <div class="env-base"></div>
+        </div>
+        <p>Tap the heart to open</p>
+    </div>
+</div>
+
+<script>
+    function nav(id) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        const v = document.getElementById('vid');
+        if(id === 's4') { v.play(); } else { v.pause(); }
+    }
+
+    function blow() {
+        document.getElementById('cake').classList.add('blown');
+        setTimeout(() => nav('s3'), 1000);
+    }
+</script>
+
+</body>
+</html>
